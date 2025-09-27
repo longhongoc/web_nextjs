@@ -152,7 +152,7 @@ export default function Page() {
             </div>
 
             <div>
-              <label>Confirm Password</label>
+              <label>{t('Confirm Password')}</label>
               <input
                 type="password"
                 {...register('confirmPassword')}
