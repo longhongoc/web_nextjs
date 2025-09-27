@@ -1,4 +1,6 @@
 @import 'tailwindcss';
+@import "slick-carousel/slick/slick.css";
+@import "slick-carousel/slick/slick-theme.css";
 
 :root {
   --background: #ffffff;
@@ -8,8 +10,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-poppins: var(--font-poppins);
+  --font-sen: var(--font-sen);
+  --font-inter: var(--font-inter)
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,8 +22,60 @@
   }
 }
 
+/* Ẩn scrollbar trên Chrome, Safari, Edge */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Ẩn scrollbar trên Firefox */
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* background: var(--background);
+  color: var(--foreground); */
+  font-family: var(--font-poppins),Arial, Helvetica, sans-serif;
+}
+
+a {
+  font-weight: 500;
+  color: #676A6C;
+  text-decoration: inherit;
+
+}
+
+a:hover {
+  color: #535bf2;
+}
+
+p {
+  font-weight: 500;
+  text-decoration: inherit;
+}
+
+h3{
+  font-weight: 600;
+  font-size: 1.4rem;
+  color: #2D3134;
+}
+
+button {
+  cursor: pointer;
+}
+
+.swiper-wrapper{
+position: relative;
+height: 100%;
+width: 100%;
+display: flex;
+z-index: 1;
+}
+
+label{
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
 }
