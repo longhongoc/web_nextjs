@@ -147,16 +147,20 @@ export default function Page() {
           </div>
         </div>
         <section className=" h-[620px] w-[600px] shadow-2xl rounded-2xl bg-white p-4 overflow-y-scroll hide-scrollbar">
-          <h1 className=" text-center text-4xl text-[#2D3134]">
+          <h1 className=" text-center text-20-20-600 text-[#2D3134]">
             {t('Registration Form')}
           </h1>
-          <form onSubmit={handleSubmit(onSubmit)} className="">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className=" flex flex-col gap-[15px]"
+          >
             <div>
               <label>{t('Fullname')}</label>
               <input
                 type="text"
                 {...register('fullName')}
                 className="w-full border rounded-md p-2"
+                placeholder="ex: Nguyen Van A,..."
               />
               {errors.fullName && (
                 <p className="text-red-500 text-sm">
@@ -171,6 +175,7 @@ export default function Page() {
                 type="email"
                 {...register('email')}
                 className="w-full border rounded-md p-2"
+                placeholder="ex: Anguyen@gmai.com,..."
               />
               {errors.email && (
                 <p className="text-red-500 text-sm">
@@ -213,6 +218,7 @@ export default function Page() {
                 type="number"
                 {...register('age', { valueAsNumber: true })}
                 className="w-full border rounded-md p-2"
+                placeholder="ex: 18, 19, 20,...."
               />
               {errors.age && (
                 <p className="text-red-500 text-sm">
@@ -268,9 +274,7 @@ export default function Page() {
           </form>
         </section>
         <section className=" h-[550px] w-[800px] shadow-2xl rounded-2xl bg-white p-4 overflow-y-scroll hide-scrollbar mt-12">
-          <h1 className=" text-center text-4xl text-[#2D3134]">
-            {t('Data Table')}
-          </h1>
+          <h1 className=" text-20-20-600 text-center">{t('Data Table')}</h1>
           <table className="hidden min-w-full text-gray-900 md:table">
             <thead className="rounded-lg text-left text-sm font-normal">
               <tr>
@@ -294,7 +298,7 @@ export default function Page() {
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white">
+            <tbody className="bg-white text-center">
               {totalData?.map((res, index) => (
                 <tr
                   key={index}
@@ -319,7 +323,7 @@ export default function Page() {
                   {index === tableRow && (
                     <td className="whitespace-nowrap px-2 py-3">
                       <button
-                        className=" bg-red-500 p-[10px] rounded-2xl cursor-pointer hover:bg-red-300"
+                        className=" bg-red-500 p-[10px] rounded-2xl cursor-pointer text-16-26-400 hover:bg-red-300"
                         onClick={() => deleteSubmit(res.id)}
                       >
                         {serverDelete ? 'Loading...' : 'Delete'}

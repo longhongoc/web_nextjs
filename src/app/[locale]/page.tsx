@@ -30,7 +30,7 @@ export default function Home() {
     <div className=" w-sceen flex flex-col items-center justify-items-center bg-[#FAF8ED]">
       <main className=" w-[1440px] flex flex-col gap-[32px] items-center">
         <div className=" w-full h-[720px]">
-          <div className=" w-[1440px] h-[102px] flex justify-around items-center  px-[135px] py-[24px]">
+          <div className=" w-[1440px] h-[102px] flex items-center  px-[135px] py-[24px]">
             <Image
               src="/png/Logo.png"
               alt="Salty Logo"
@@ -38,15 +38,14 @@ export default function Home() {
               height={35}
               className=" max-w-[98px] max-h-fit object-cover py-[9px]"
             />
-
-            <div className=" h-[24px] w-[519px] ml-[72px] flex justify-around items-center text-16-16-400">
+            <div className=" w-[519px] h-[24px] ml-[72px] flex gap-[36px] text-16-16-400">
               {navigation.map((res, index) => (
                 <Link
                   key={index}
-                  href="#"
+                  href={'/#'}
                   onClick={() => setActive(index)}
-                  className={clsx({
-                    ' border-b-2 border-[#F66F4D]': index === active,
+                  className={clsx('', {
+                    'border-b-[2px] border-[#F66F4D]': index === active,
                   })}
                 >
                   {t(`${res}`)}
@@ -55,7 +54,7 @@ export default function Home() {
             </div>
             <Link
               href={'/registration'}
-              className=" h-[54px] w-[170px] ml-[383px] flex items-center justify-center border-[1.4px] border-[#F66F4D] text-[16px] font-medium leading-[16px] rounded-2xl cursor-pointer"
+              className=" h-[54px] w-[170px] ml-[233px] flex items-center justify-center border-[1.4px] border-[#F66F4D] text-[16px] font-medium leading-[16px] rounded-full cursor-pointer"
             >
               <p className=" text-[#F66F4D]">{t('Book Now')}</p>
               <Image

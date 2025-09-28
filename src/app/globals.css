@@ -58,6 +58,7 @@ label {
 .text-16-26-400 {
   font-size: 16px;
   line-height: 26px;
+  letter-spacing: 2px;
   font-weight: 400;
 }
 
@@ -95,12 +96,19 @@ label {
   line-height: 12px;
   font-weight: 400;
   color: #9498a4;
-}
 
+}
 .text-20-20-600 {
   font-size: 20px;
   line-height: 20px;
   letter-spacing: 5px;
   font-weight: 600;
   color: #f66f4d;
+}
+
+label{
+  font-size: 16px;
+  line-height: 18px;
+  font-weight: 400;
+  color: #2d3134;
 }
