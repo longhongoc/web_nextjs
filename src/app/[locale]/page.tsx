@@ -73,7 +73,7 @@ export default function Home() {
                   className={clsx(
                     'h-full w-1/2 rounded-l-2xl flex items-center justify-center',
                     {
-                      'bg-amber-200 text-white': path === 'en',
+                      'bg-[#FFD482] text-white': path === 'en',
                     }
                   )}
                 >
@@ -85,7 +85,7 @@ export default function Home() {
                   className={clsx(
                     'h-full w-1/2 rounded-r-2xl flex items-center justify-center',
                     {
-                      'bg-amber-200 text-white': path === 'ja',
+                      'bg-[#FFD482] text-white': path === 'ja',
                     }
                   )}
                 >
@@ -97,10 +97,10 @@ export default function Home() {
           <div className=" h-[618px] w-full flex gap-[67px]">
             <section className=" h-[460px] w-[577px] flex flex-col justify-center gap-4 mt-[74px] ml-[135px]">
               <h1 className=" text-84-86-700 font-sen">{t('title')}</h1>
-              <p className=" w-[500px] h-[56px] text-18-28-400 font-inter">
+              <p className=" w-[500px] h-[56px] text-18-28-400 font-inter mt-[26px]">
                 {t('description')}
               </p>
-              <div className=" h-[76px] w-[500px] flex justify-around rounded-full items-center p-2 bg-[#FFFFFFB2] font-inter">
+              <div className=" h-[76px] w-[500px] flex justify-around rounded-full items-center mt-[44px] p-2 bg-[#FFFFFFB2] font-inter">
                 <div className=" w-2/5 h-full flex flex-col justify-center border-r-2 border-[#F66F4D0D]">
                   <span className=" text-18-18-500">{t('where')}</span>
                   <div className=" w-full flex">
@@ -142,9 +142,9 @@ export default function Home() {
             />
           </div>
         </div>
-        <div className=" h-[542px] w-full flex flex-col font-inter px-[135px]">
+        <div className=" h-[542px] w-full flex flex-col font-inter px-[135px] gap-[60px]">
           <div className=" flex pt-[18px]">
-            <section className=" h-full w-3/5 flex flex-col justify-center gap-4">
+            <section className=" h-full w-3/5 flex flex-col gap-[24px]">
               <h1 className=" text-[56px] leading-[56px] font-semibold text-[#2D3134]">
                 {t('title_categories')}
               </h1>
@@ -152,7 +152,7 @@ export default function Home() {
                 {t('description_categories')}
               </p>
             </section>
-            <div className=" h-full w-2/5 flex gap-6 justify-end pr-[3%]">
+            <div className=" h-full w-2/5 flex gap-[16px] justify-end pr-[3%]">
               <button
                 className=" cursor-pointer"
                 onClick={() => sliderRef.current?.slickPrev()}
@@ -251,7 +251,7 @@ export default function Home() {
             <p className=" w-[467px] h-[104px] text-[#5B5F62] text-16-26-400">
               {t('description_feature')}
             </p>
-            <div className=" flex items-center gap-[20px]">
+            <div className=" flex items-center gap-[20px] mt-[40px]">
               {infor.map((res, index) => (
                 <div
                   key={index}

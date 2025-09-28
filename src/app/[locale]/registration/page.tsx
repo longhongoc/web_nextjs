@@ -126,7 +126,7 @@ export default function Page() {
               className={clsx(
                 'h-full w-1/2 rounded-l-2xl flex items-center justify-center',
                 {
-                  'bg-amber-200 text-white': path === 'en',
+                  'bg-[#FFD482] text-white': path === 'en',
                 }
               )}
             >
@@ -138,7 +138,7 @@ export default function Page() {
               className={clsx(
                 'h-full w-1/2 rounded-r-2xl flex items-center justify-center',
                 {
-                  'bg-amber-200 text-white': path === 'ja',
+                  'bg-[#FFD482] text-white': path === 'ja',
                 }
               )}
             >
