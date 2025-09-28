@@ -214,7 +214,7 @@ export default function Home() {
             />
             <div className=" h-[218px] w-[140px] absolute left-[70px] top-[307px] bg-white rounded-2xl flex flex-col items-center justify-around font-poppins">
               <Image
-                src="/svg/IConImages.svg"
+                src="/svg/IconImages.svg"
                 alt="Images"
                 width={80}
                 height={80}
@@ -229,7 +229,7 @@ export default function Home() {
             </div>
             <div className=" h-[92px] w-[171px] absolute left-[424px] bottom-[50px] flex bg-white rounded-2xl font-poppins">
               <Image
-                src="/svg/IConImages2.svg"
+                src="/svg/IconImages2.svg"
                 alt="Images"
                 width={60}
                 height={60}
