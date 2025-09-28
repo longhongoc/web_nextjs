@@ -43,7 +43,7 @@ button {
   cursor: pointer;
 }
 
-.slick-slide{
+.slick-slide {
   display: flex !important;
   align-items: center;
   justify-content: center;
@@ -55,52 +55,52 @@ label {
   margin-bottom: 0.25rem;
 }
 
-.text-16-26-400{
+.text-16-26-400 {
   font-size: 16px;
   line-height: 26px;
   font-weight: 400;
 }
 
-.text-18-28-400{
+.text-18-28-400 {
   font-size: 18px;
   line-height: 28px;
   font-weight: 400;
-  color: #5B5F62;
+  color: #5b5f62;
 }
 
-.text-18-18-500{
+.text-18-18-500 {
   font-size: 18px;
   line-height: 18px;
   font-weight: 500;
-  color: #2D3134;
+  color: #2d3134;
 }
 
-.text-14-34-400{
+.text-14-34-400 {
   font-size: 14px;
   line-height: 34px;
   font-weight: 400;
-  color: #676A6C;
+  color: #676a6c;
   display: block;
 }
 
-.text-84-86-700{
+.text-84-86-700 {
   font-size: 84px;
   line-height: 86px;
   font-weight: 700;
-  color: #2D3134;
+  color: #2d3134;
 }
 
-.text-12-12-400{
+.text-12-12-400 {
   font-size: 12px;
   line-height: 12px;
   font-weight: 400;
-  color: #9498A4;
+  color: #9498a4;
 }
 
-.text-20-20-600{
+.text-20-20-600 {
   font-size: 20px;
   line-height: 20px;
   letter-spacing: 5px;
   font-weight: 600;
-  color: #F66F4D;
+  color: #f66f4d;
 }
