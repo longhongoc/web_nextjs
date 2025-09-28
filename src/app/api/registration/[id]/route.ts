@@ -5,13 +5,12 @@ const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const userId = params.id;
+    const { id } = await context.params;
 
-    // Xoá user theo id
-    await sql`DELETE FROM registration_infor WHERE id = ${userId}`;
+    await sql`DELETE FROM registration_infor WHERE id = ${id}`;
 
     return NextResponse.json({ message: 'User deleted successfully' });
   } catch (err) {
