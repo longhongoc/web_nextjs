@@ -5,16 +5,16 @@ export const infor = [
 ];
 
 export const picArrays = [
-  { pic: '/Beach.png', alt: 'Beach' },
-  { pic: '/Tower.png', alt: 'Tower' },
-  { pic: '/Mountain.png', alt: 'Mountain' },
-  { pic: '/Temple.png', alt: 'Temple' },
-  { pic: '/Pyramid.png', alt: 'Pyramid' },
-  { pic: '/Beach.png', alt: 'Beach' },
-  { pic: '/Tower.png', alt: 'Tower' },
-  { pic: '/Mountain.png', alt: 'Mountain' },
-  { pic: '/Temple.png', alt: 'Temple' },
-  { pic: '/Pyramid.png', alt: 'Pyramid' },
+  { pic: '/png/Beach.png', alt: 'Beach' },
+  { pic: '/png/Tower.png', alt: 'Tower' },
+  { pic: '/png/Mountain.png', alt: 'Mountain' },
+  { pic: '/png/Temple.png', alt: 'Temple' },
+  { pic: '/png/Pyramid.png', alt: 'Pyramid' },
+  { pic: '/png/Beach.png', alt: 'Beach' },
+  { pic: '/png/Tower.png', alt: 'Tower' },
+  { pic: '/png/Mountain.png', alt: 'Mountain' },
+  { pic: '/png/Temple.png', alt: 'Temple' },
+  { pic: '/png/Pyramid.png', alt: 'Pyramid' },
 ];
 
 export const navigation = ['Home', 'About us', 'Destination', 'Tours', 'Blog'];

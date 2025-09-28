@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { Link as SwitchLang } from '@/i18n/navigation';
 import clsx from 'clsx';
@@ -11,6 +11,34 @@ import clsx from 'clsx';
 export default function Page() {
   const t = useTranslations('Registration');
   const path = useLocale();
+
+  type RegistrationData = {
+    id: number;
+    full_name: string;
+    email: string;
+    password: string;
+    age: number;
+    gender: string;
+    terms: boolean;
+  };
+
+  type RegisterFormData = z.infer<typeof registerSchema>;
+
+  const [totalData, setTotalData] = useState<RegistrationData[]>([]);
+  const [tableRow, setTableRow] = useState<number | null>(null);
+  const [serverError, setServerError] = useState('');
+  const [serverDelete, setServerDelete] = useState(false);
+
+  const fetchTotalData = useCallback(() => {
+    fetch('/api/registration')
+      .then((res) => res.json())
+      .then((data) => setTotalData(data));
+  }, []);
+
+  useEffect(() => {
+    fetchTotalData();
+  }, [fetchTotalData]);
+
   const registerSchema = z
     .object({
       fullName: z
@@ -42,10 +70,6 @@ export default function Page() {
       message: 'Invalid Password',
     });
 
-  type RegisterFormData = z.infer<typeof registerSchema>;
-
-  const [serverError, setServerError] = useState('');
-
   const {
     register,
     handleSubmit,
@@ -57,18 +81,36 @@ export default function Page() {
   const onSubmit = async (data: RegisterFormData) => {
     setServerError('');
     try {
-      // Ví dụ gọi API
-      console.log('Form data:', data);
+      await fetch('/api/registration', {
+        method: 'POST',
+        body: JSON.stringify(data),
+      });
       alert('Đăng ký thành công!');
+      fetchTotalData();
     } catch (err: unknown) {
       setServerError('Có lỗi xảy ra, vui lòng thử lại.' + err);
     }
   };
 
+  const deleteSubmit = async (id: number) => {
+    setServerDelete(true);
+    const res = await fetch(`/api/registration/${id}`, {
+      method: 'DELETE',
+    });
+
+    if (res.ok) {
+      setServerDelete(false);
+      setTotalData((prev) => prev.filter((u) => u.id !== id));
+      alert('User deleted!');
+    } else {
+      alert('Failed to delete user');
+    }
+  };
+
   return (
-    <div className=" h-screen w-screen font-inter flex flex-col items-center justify-items-center bg-[#FAF8ED]">
-      <main className=" relative h-full w-full flex items-center justify-center">
-        <button className=" absolute top-2 left-2 h-[7%] w-[4%] flex rounded-2xl shadow-2xl text-xl bg-white border-2 border-red-400 hover:bg-red-400 hover:text-white ">
+    <div className=" w-sceen flex flex-col items-center justify-items-center bg-[#FAF8ED]">
+      <main className=" relative w-[1440px] flex flex-col gap-[32px] items-center p-12">
+        <button className=" absolute top-2 left-2 h-[40px] w-[70px] flex rounded-2xl shadow-2xl text-xl bg-white border-2 border-red-400 hover:bg-red-400 hover:text-white ">
           <Link
             href={'/'}
             className=" h-full w-full flex items-center justify-center"
@@ -76,7 +118,7 @@ export default function Page() {
             {t('Back')}
           </Link>
         </button>
-        <div className=" absolute right-2 top-2 h-1/12 w-1/12 m-auto p-2">
+        <div className=" absolute right-2 top-2 h-[50px] w-[100px] m-auto p-2">
           <div className=" h-full w-full flex items-center justify-around bg-white shadow rounded-2xl">
             <SwitchLang
               href="/registration"
@@ -104,7 +146,7 @@ export default function Page() {
             </SwitchLang>
           </div>
         </div>
-        <section className=" h-4/5 w-2/5 shadow-2xl rounded-2xl bg-white p-4 overflow-y-scroll hide-scrollbar">
+        <section className=" h-[620px] w-[600px] shadow-2xl rounded-2xl bg-white p-4 overflow-y-scroll hide-scrollbar">
           <h1 className=" text-center text-4xl text-[#2D3134]">
             {t('Registration Form')}
           </h1>
@@ -224,6 +266,70 @@ export default function Page() {
               {isSubmitting ? t('Loading') : t('Register')}
             </button>
           </form>
+        </section>
+        <section className=" h-[550px] w-[800px] shadow-2xl rounded-2xl bg-white p-4 overflow-y-scroll hide-scrollbar mt-12">
+          <h1 className=" text-center text-4xl text-[#2D3134]">
+            {t('Data Table')}
+          </h1>
+          <table className="hidden min-w-full text-gray-900 md:table">
+            <thead className="rounded-lg text-left text-sm font-normal">
+              <tr>
+                <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
+                  {t('ID')}
+                </th>
+                <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
+                  {t('Fullname')}
+                </th>
+                <th scope="col" className="px-3 py-5 font-medium">
+                  {t('Email')}
+                </th>
+                <th scope="col" className="px-3 py-5 font-medium">
+                  {t('Age')}
+                </th>
+                <th scope="col" className="px-3 py-5 font-medium">
+                  {t('Gender')}
+                </th>
+                <th scope="col" className="px-3 py-5 font-medium">
+                  {t('Terms')}
+                </th>
+              </tr>
+            </thead>
+            <tbody className="bg-white">
+              {totalData?.map((res, index) => (
+                <tr
+                  key={index}
+                  className={clsx(
+                    ' relative w-full hover:bg-amber-100 cursor-pointer border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg',
+                    { ' bg-blue-300': index === tableRow }
+                  )}
+                  onClick={() => setTableRow(index)}
+                >
+                  <td className="whitespace-nowrap px-2 py-3">{res.id}</td>
+                  <td className="whitespace-nowrap px-2 py-3">
+                    {res.full_name}
+                  </td>
+                  <td className="whitespace-nowrap px-2 py-3">{res.email}</td>
+                  <td className="whitespace-nowrap px-2 py-3">{res.age}</td>
+                  <td className="whitespace-nowrap px-2 py-3">
+                    {t(`${res.gender}`)}
+                  </td>
+                  <td className="whitespace-nowrap px-2 py-3">
+                    <input type="checkbox" checked={res.terms} disabled />
+                  </td>
+                  {index === tableRow && (
+                    <td className="whitespace-nowrap px-2 py-3">
+                      <button
+                        className=" bg-red-500 p-[10px] rounded-2xl cursor-pointer hover:bg-red-300"
+                        onClick={() => deleteSubmit(res.id)}
+                      >
+                        {serverDelete ? 'Loading...' : 'Delete'}
+                      </button>
+                    </td>
+                  )}
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </section>
       </main>
     </div>

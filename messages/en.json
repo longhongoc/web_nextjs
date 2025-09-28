@@ -49,6 +49,7 @@
     "Enjoy the touring with Salty": "Enjoy the touring with Salty"
   },
   "Registration": {
+    "Data Table": "Data Table",
     "Back": "Back",
     "Registration Form": "Registration Form",
     "Fullname": "Fullname",
@@ -76,6 +77,11 @@
     "You must agree with terms": "You must agree with terms",
     "terms": "terms",
     "Register": "Register",
-    "Loading": "Loading..."
+    "Loading": "Loading...",
+    "ID": "ID",
+    "Terms": "Terms",
+    "male": "male",
+    "female": "female",
+    "others": "others"
   }
 }

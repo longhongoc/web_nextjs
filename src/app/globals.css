@@ -39,41 +39,68 @@ body {
   font-family: var(--font-poppins), Arial, Helvetica, sans-serif;
 }
 
-a {
-  font-weight: 500;
-  color: #676a6c;
-  text-decoration: inherit;
-}
-
-a:hover {
-  color: #535bf2;
-}
-
-p {
-  font-weight: 500;
-  text-decoration: inherit;
-}
-
-h3 {
-  font-weight: 600;
-  font-size: 1.4rem;
-  color: #2d3134;
-}
-
 button {
   cursor: pointer;
 }
 
-.swiper-wrapper {
-  position: relative;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  z-index: 1;
+.slick-slide{
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
 }
 
 label {
   display: block;
   font-weight: 500;
   margin-bottom: 0.25rem;
+}
+
+.text-16-26-400{
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 400;
+}
+
+.text-18-28-400{
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 400;
+  color: #5B5F62;
+}
+
+.text-18-18-500{
+  font-size: 18px;
+  line-height: 18px;
+  font-weight: 500;
+  color: #2D3134;
+}
+
+.text-14-34-400{
+  font-size: 14px;
+  line-height: 34px;
+  font-weight: 400;
+  color: #676A6C;
+  display: block;
+}
+
+.text-84-86-700{
+  font-size: 84px;
+  line-height: 86px;
+  font-weight: 700;
+  color: #2D3134;
+}
+
+.text-12-12-400{
+  font-size: 12px;
+  line-height: 12px;
+  font-weight: 400;
+  color: #9498A4;
+}
+
+.text-20-20-600{
+  font-size: 20px;
+  line-height: 20px;
+  letter-spacing: 5px;
+  font-weight: 600;
+  color: #F66F4D;
 }
