@@ -1,7 +1,6 @@
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Link as SwitchLang } from '@/i18n/navigation';
 import { useRef, useState } from 'react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -9,12 +8,13 @@ import 'swiper/css/pagination';
 import clsx from 'clsx';
 import Slider from 'react-slick';
 import { useTranslations } from 'next-intl';
-import { useLocale } from 'next-intl';
 import { infor, picArrays, navigation } from '@/utils/constants';
+import { useCurrentLocale, useCurrentLanguage } from './provider';
 
 export default function Home() {
   const t = useTranslations('TravellingPage');
-  const path = useLocale();
+  const setLocale = useCurrentLocale();
+  const currentLanguage = useCurrentLanguage();
   const sliderRef = useRef<Slider | null>(null);
   const [active, setActive] = useState(0);
 
@@ -65,7 +65,7 @@ export default function Home() {
                 className=" max-w-[16px] max-h-fit object-cover"
               ></Image>
             </Link>
-            <div className=" h-[90px] w-[150px] p-6">
+            {/* <div className=" h-[90px] w-[150px] p-6">
               <div className=" h-full w-full flex items-center justify-around bg-white shadow rounded-2xl">
                 <SwitchLang
                   href="/"
@@ -91,6 +91,32 @@ export default function Home() {
                 >
                   JA
                 </SwitchLang>
+              </div>
+            </div> */}
+            <div className="h-[90px] w-[150px] p-6">
+              <div className=" h-full w-full flex items-center justify-around bg-white shadow rounded-2xl">
+                <button
+                  onClick={() => setLocale('en')}
+                  className={clsx(
+                    'h-full w-1/2 rounded-l-2xl flex items-center justify-center',
+                    {
+                      'bg-[#FFD482] text-white': currentLanguage === 'en',
+                    }
+                  )}
+                >
+                  EN
+                </button>
+                <button
+                  onClick={() => setLocale('ja')}
+                  className={clsx(
+                    'h-full w-1/2 rounded-r-2xl flex items-center justify-center',
+                    {
+                      'bg-[#FFD482] text-white': currentLanguage === 'ja',
+                    }
+                  )}
+                >
+                  JA
+                </button>
               </div>
             </div>
           </div>

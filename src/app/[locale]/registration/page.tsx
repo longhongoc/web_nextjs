@@ -4,13 +4,14 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useCallback, useEffect, useState } from 'react';
-import { useLocale, useTranslations } from 'next-intl';
-import { Link as SwitchLang } from '@/i18n/navigation';
+import { useTranslations } from 'next-intl';
 import clsx from 'clsx';
+import { useCurrentLocale, useCurrentLanguage } from '../provider';
 
 export default function Page() {
   const t = useTranslations('Registration');
-  const path = useLocale();
+  const setLocale = useCurrentLocale();
+  const currentLanguage = useCurrentLanguage();
 
   type RegistrationData = {
     id: number;
@@ -28,6 +29,7 @@ export default function Page() {
   const [tableRow, setTableRow] = useState<number | null>(null);
   const [serverError, setServerError] = useState('');
   const [serverDelete, setServerDelete] = useState(false);
+  const [require, setRequire] = useState<string | null>(null);
 
   const fetchTotalData = useCallback(() => {
     fetch('/api/registration')
@@ -106,19 +108,18 @@ export default function Page() {
       alert('Failed to delete user');
     }
   };
-
   return (
     <div className=" w-sceen flex flex-col items-center justify-items-center bg-[#FAF8ED]">
-      <main className=" relative w-[1440px] flex flex-col gap-[32px] items-center p-12">
-        <button className=" absolute top-2 left-2 h-[40px] w-[70px] flex rounded-2xl shadow-2xl text-xl bg-white border-2 border-red-400 hover:bg-red-400 hover:text-white ">
+      <main className=" relative w-[1440px] flex flex-col gap-[32px] items-center p-6">
+        {/* <button className=" absolute top-2 left-2 h-[40px] w-[70px] flex rounded-2xl shadow-2xl text-xl bg-white border-2 border-red-400 hover:bg-red-400 hover:text-white ">
           <Link
             href={'/'}
             className=" h-full w-full flex items-center justify-center"
           >
             {t('Back')}
           </Link>
-        </button>
-        <div className=" absolute right-2 top-2 h-[50px] w-[100px] m-auto p-2">
+        </button> */}
+        {/* <div className=" absolute right-2 top-2 h-[50px] w-[100px] m-auto p-2">
           <div className=" h-full w-full flex items-center justify-around bg-white shadow rounded-2xl">
             <SwitchLang
               href="/registration"
@@ -145,14 +146,40 @@ export default function Page() {
               JA
             </SwitchLang>
           </div>
-        </div>
-        <section className=" h-[620px] w-[600px] shadow-2xl rounded-2xl bg-white p-4 overflow-y-scroll hide-scrollbar">
+        </div> */}
+        <section className=" relative h-[620px] w-[600px] shadow-2xl rounded-2xl bg-white p-4 ">
+          <div className="absolute right-[2px] top-[2px] h-[50px] w-[100px] m-auto p-2">
+            <div className=" h-full w-full flex items-center justify-around bg-white shadow rounded-2xl">
+              <button
+                onClick={() => setLocale('en')}
+                className={clsx(
+                  'h-full w-1/2 rounded-l-2xl flex items-center justify-center',
+                  {
+                    'bg-[#FFD482] text-white': currentLanguage === 'en',
+                  }
+                )}
+              >
+                EN
+              </button>
+              <button
+                onClick={() => setLocale('ja')}
+                className={clsx(
+                  'h-full w-1/2 rounded-r-2xl flex items-center justify-center',
+                  {
+                    'bg-[#FFD482] text-white': currentLanguage === 'ja',
+                  }
+                )}
+              >
+                JA
+              </button>
+            </div>
+          </div>
           <h1 className=" text-center text-20-20-600 text-[#2D3134]">
             {t('Registration Form')}
           </h1>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className=" flex flex-col gap-[15px]"
+            className=" max-h-[570px] flex flex-col gap-[10px] overflow-y-scroll hide-scrollbar"
           >
             <div>
               <label>{t('Fullname')}</label>
@@ -161,10 +188,17 @@ export default function Page() {
                 {...register('fullName')}
                 className="w-full border rounded-md p-2"
                 placeholder="ex: Nguyen Van A,..."
+                onFocus={() => setRequire('Fullname is required')}
+                onBlur={() => setRequire(null)}
               />
               {errors.fullName && (
                 <p className="text-red-500 text-sm">
                   {t(`${errors.fullName.message}`)}
+                </p>
+              )}
+              {require === 'Fullname is required' && (
+                <p className="text-red-500 text-sm">
+                  {t(`This field is required`)}
                 </p>
               )}
             </div>
@@ -176,10 +210,17 @@ export default function Page() {
                 {...register('email')}
                 className="w-full border rounded-md p-2"
                 placeholder="ex: Anguyen@gmai.com,..."
+                onFocus={() => setRequire('Email is required')}
+                onBlur={() => setRequire(null)}
               />
               {errors.email && (
                 <p className="text-red-500 text-sm">
                   {t(`${errors.email.message}`)}
+                </p>
+              )}
+              {require === 'Email is required' && (
+                <p className="text-red-500 text-sm">
+                  {t(`This field is required`)}
                 </p>
               )}
             </div>
@@ -190,10 +231,17 @@ export default function Page() {
                 type="password"
                 {...register('password')}
                 className="w-full border rounded-md p-2"
+                onFocus={() => setRequire('Password is required')}
+                onBlur={() => setRequire(null)}
               />
               {errors.password && (
                 <p className="text-red-500 text-sm">
                   {t(`${errors.password.message}`)}
+                </p>
+              )}
+              {require === 'Password is required' && (
+                <p className="text-red-500 text-sm">
+                  {t(`This field is required`)}
                 </p>
               )}
             </div>
@@ -204,10 +252,17 @@ export default function Page() {
                 type="password"
                 {...register('confirmPassword')}
                 className="w-full border rounded-md p-2"
+                onFocus={() => setRequire('Confirm password is required')}
+                onBlur={() => setRequire(null)}
               />
               {errors.confirmPassword && (
                 <p className="text-red-500 text-sm">
                   {t(`${errors.confirmPassword.message}`)}
+                </p>
+              )}
+              {require === 'Confirm password is required' && (
+                <p className="text-red-500 text-sm">
+                  {t(`This field is required`)}
                 </p>
               )}
             </div>
@@ -219,10 +274,17 @@ export default function Page() {
                 {...register('age', { valueAsNumber: true })}
                 className="w-full border rounded-md p-2"
                 placeholder="ex: 18, 19, 20,...."
+                onFocus={() => setRequire('Age is required')}
+                onBlur={() => setRequire(null)}
               />
               {errors.age && (
                 <p className="text-red-500 text-sm">
                   {t(`${errors.age.message}`)}
+                </p>
+              )}
+              {require === 'Age is required' && (
+                <p className="text-red-500 text-sm">
+                  {t(`This field is required`)}
                 </p>
               )}
             </div>
@@ -259,18 +321,26 @@ export default function Page() {
                 {t(`${errors.terms.message}`)}
               </p>
             )}
-
             {serverError && (
               <p className="text-red-600 text-sm mb-2">{t(`${serverError}`)}</p>
             )}
-
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 disabled:opacity-50"
-            >
-              {isSubmitting ? t('Loading') : t('Register')}
-            </button>
+            <div className=" sticky bottom-0 flex flex-col gap-[5px] bg-white">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className=" w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 disabled:opacity-50"
+              >
+                {isSubmitting ? t('Loading') : t('Register')}
+              </button>
+              <button className=" h-[40px] w-full flex rounded-md shadow-2xl text-16-26-400 bg-white border-2 border-red-400 hover:bg-red-400 hover:text-white ">
+                <Link
+                  href={'/'}
+                  className=" h-full w-full flex items-center justify-center"
+                >
+                  {t('Back')}
+                </Link>
+              </button>
+            </div>
           </form>
         </section>
         <section className=" h-[550px] w-[800px] shadow-2xl rounded-2xl bg-white p-4 overflow-y-scroll hide-scrollbar mt-12">

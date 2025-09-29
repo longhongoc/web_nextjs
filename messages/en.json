@@ -82,6 +82,7 @@
     "Terms": "Terms",
     "male": "male",
     "female": "female",
-    "others": "others"
+    "others": "others",
+    "This field is required": "This field is required"
   }
 }
